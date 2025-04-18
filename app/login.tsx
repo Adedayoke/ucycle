@@ -6,18 +6,22 @@ export default function login() {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" backgroundColor="white" />{" "}
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>Login to recycu</Text>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "white",
-    flex: 1,
-  },
+      flex: 1,
+      backgroundColor: "white",
+      // justifyContent: "center",
+      // alignItems: "center",
+      paddingTop: 100,
+      paddingHorizontal: 20,
+    },
   title: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     color: "black",
   }

@@ -6,7 +6,7 @@ import { Dimensions } from "react-native";
 
 const { width } = Dimensions.get("window");
 
-const imageSize = width -  (width * 0.231);
+const imageSize = width - width * 0.231;
 
 export default function OnboardingScreen({
   data,
@@ -23,18 +23,16 @@ export default function OnboardingScreen({
           <Text style={{ color: themes.colorInactive, fontSize: 16 }}>/3</Text>
         </View>
         <Link href="/login" asChild>
-          <Pressable>
+          <Pressable hitSlop={20}>
             <Text style={{ color: "white", fontSize: 16 }}>Skip</Text>
           </Pressable>
         </Link>
       </View>
       <View style={styles.content}>
-        <View style={styles.imagecont}>
-
-        </View>
+        <View style={styles.imagecont}></View>
         <View style={styles.contentText}>
-        <Text style={styles.title}>{data[index].title}</Text>
-        <Text style={styles.desc}>{data[index].description}</Text>
+          <Text style={styles.title}>{data[index].title}</Text>
+          <Text style={styles.desc}>{data[index].description}</Text>
         </View>
       </View>
     </View>
@@ -51,7 +49,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    color: "white"
+    color: "white",
   },
   desc: {
     marginTop: 10,
@@ -67,20 +65,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  content:{
+  content: {
     flex: 1,
     // backgroundColor: "red",
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: "center",
+    justifyContent: "center",
   },
   contentText: {
-    alignItems:"center",
-    justifyContent:"center"
+    alignItems: "center",
+    justifyContent: "center",
   },
-  imagecont:{
+  imagecont: {
     width: imageSize,
-    height: imageSize ,
-    backgroundColor:"#C4C4C4",
-    marginBottom: 50
-  }
+    height: imageSize,
+    backgroundColor: "#C4C4C4",
+    marginBottom: 50,
+  },
 });

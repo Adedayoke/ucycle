@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
   prevText: {
     display: "none",
     color: "white",
-    fontSize: 16,
+    fontSize: 1,
   },
   nextText: {
     color: themes.colorSecondary,
