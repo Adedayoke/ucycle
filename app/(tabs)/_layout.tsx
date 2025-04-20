@@ -1,45 +1,94 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
-import { Platform } from 'react-native';
+import { TabBarProvider, useTabBar } from "@/context/TabBarContext";
+import { themes } from "@/theme";
+import { AntDesign, Octicons, SimpleLineIcons } from "@expo/vector-icons";
+import { BlurView } from "expo-blur";
+import { Tabs } from "expo-router";
+import React, { useEffect } from "react";
+import { StyleSheet, View } from "react-native";
 
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
+export default function _layout() {
+  const {tabBarStyle} = useTabBar()
+  
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
+      <Tabs
+        screenOptions={{
+          tabBarStyle: {
+            position: "absolute",
+            bottom: 0,
+            left: 20,
+            right: 20,
+            height: 65,
+            backgroundColor: tabBarStyle ? tabBarStyle?.backgroundColor : "transparent",
+            borderTopWidth: 0,
+            elevation: 0,
+            zIndex: 999,
           },
-          default: {},
-        }),
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarBackground: () => (
+            <View
+              style={{
+                ...StyleSheet.absoluteFillObject,
+                overflow: "hidden",
+              }}
+            >
+              <BlurView
+                style={{
+                  flex: 1,
+                  backgroundColor: "transparent",
+                }}
+                intensity={80}
+              />
+            </View>
+          ),
         }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
-    </Tabs>
+      >
+        <Tabs.Screen
+          name="(wastes)"
+          options={{
+            title: "Home",
+            headerShown: false,
+            tabBarActiveTintColor: "#fff",
+            tabBarInactiveTintColor: themes.colorTextFaded,
+            tabBarIcon: ({ color }) => (
+              <Octicons name="home" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="leaderboard"
+          options={{
+            title: "Leaderboard",
+            headerShown: false,
+            tabBarActiveTintColor: "#fff",
+            tabBarInactiveTintColor: themes.colorTextFaded,
+            tabBarIcon: ({ color }) => (
+              <AntDesign name="Trophy" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="referral"
+          options={{
+            title: "Referral",
+            headerShown: false,
+            tabBarActiveTintColor: "#fff",
+            tabBarInactiveTintColor: themes.colorTextFaded,
+            tabBarIcon: ({ color }) => (
+              <Octicons name="people" size={24} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: "Settings",
+            headerShown: false,
+            tabBarActiveTintColor: "#fff",
+            tabBarInactiveTintColor: themes.colorTextFaded,
+            tabBarIcon: ({ color }) => (
+              <SimpleLineIcons name="settings" size={24} color={color} />
+            ),
+          }}
+        />
+      </Tabs>
   );
 }
