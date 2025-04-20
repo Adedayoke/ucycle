@@ -1,13 +1,29 @@
 import { TabBarProvider, useTabBar } from "@/context/TabBarContext";
+import { useUserStore } from "@/store/userStore";
 import { themes } from "@/theme";
 import { AntDesign, Octicons, SimpleLineIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
-import { Tabs } from "expo-router";
+import { Redirect, Tabs } from "expo-router";
 import React, { useEffect } from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function _layout() {
   const {tabBarStyle} = useTabBar()
+
+  const hasFinishedOnboarding = useUserStore(
+    (state) => state.hasFinishedOnboarding
+  );
+  const user = useUserStore(
+    (state) => state.user
+  );
+
+  if (!hasFinishedOnboarding) {
+    return <Redirect href="/onboarding" />;
+  }
+  
+  if (!user) {
+    return <Redirect href="/login" />;
+  }
   
   return (
       <Tabs
@@ -44,6 +60,7 @@ export default function _layout() {
         <Tabs.Screen
           name="(wastes)"
           options={{
+            animation: "fade",
             title: "Home",
             headerShown: false,
             tabBarActiveTintColor: "#fff",

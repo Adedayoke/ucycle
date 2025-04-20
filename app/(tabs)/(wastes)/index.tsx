@@ -16,6 +16,7 @@ import {
 } from "react-native";
 
 export default function index() {
+  
   return (
     <GradientBg>
       <StatusBar style="light" backgroundColor="transparent" />

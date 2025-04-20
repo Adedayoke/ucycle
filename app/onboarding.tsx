@@ -1,7 +1,8 @@
 import OnboardingScreen from "@/components/OnboardingScreen";
 import OpaquePressable from "@/components/OpaquePressable";
+import { useUserStore } from "@/store/userStore";
 import { themes } from "@/theme";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React, { useEffect, useRef, useState } from "react";
 import {
@@ -46,6 +47,8 @@ const data = [
 export default function Onboarding() {
   const carouselRef = useRef<ICarouselInstance>(null); // Create a ref for the carousel
   const [currentIndex, setCurrentIndex] = useState(0);
+  const router = useRouter();
+  const toggleHasOnboarded = useUserStore((state) => state.toggleHasOnboarded);
 
   const goToNext = () => {
     carouselRef.current?.next(); // Move to the next slide
@@ -72,6 +75,12 @@ export default function Onboarding() {
       count: index - progress.value,
       animated: true,
     });
+  };
+
+
+  const handleToggleHasOnboarded = () => {
+    toggleHasOnboarded();
+    router.replace("/login");
   };
   return (
     <View style={styles.container}>
@@ -145,11 +154,9 @@ export default function Onboarding() {
             <Text style={styles.nextText}>Next</Text>
           </OpaquePressable>
         ) : (
-          <Link href="/login" asChild>
-            <TouchableOpacity style={styles.nextBtn}>
+            <TouchableOpacity onPress={handleToggleHasOnboarded} style={styles.nextBtn}>
               <Text style={styles.nextText}>Get started</Text>
             </TouchableOpacity>
-          </Link>
         )}
       </View>
     </View>

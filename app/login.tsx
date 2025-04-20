@@ -6,7 +6,7 @@ export default function login() {
   return (
     <View style={styles.container}>
       <StatusBar style="dark" backgroundColor="white" />{" "}
-      <Text style={styles.title}>Login to recycu</Text>
+      <Text style={styles.title}>Login to your account</Text>
     </View>
   )
 }
