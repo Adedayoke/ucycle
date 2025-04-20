@@ -28,7 +28,7 @@ export default function index() {
           <View style={styles.headerStyleLeft}>
             <ProfileRepresentation />
             <View style={{ marginLeft: 10 }}>
-              <Text style={{ fontSize: 14, color: "#fff" }}>Total Coins</Text>
+              <Text style={{ fontSize: 14, color: "#fff", fontFamily: "Montserrat_400Regular" }}>Total Coins</Text>
               <Text style={{ fontSize: 18, color: "#fff", fontWeight: "bold" }}>
                 <Text style={{ color: themes.colorGold }}>UCY</Text> 0.00
               </Text>
@@ -73,6 +73,32 @@ export default function index() {
             </Pressable>
           </Link>
         </View>
+        <BlackAndWhiteGradient style={styles.bannerStyle}>
+          <Text>Something here</Text>
+        </BlackAndWhiteGradient>
+        <View style={styles.recentActivityStyle}>
+          <Text
+            style={{
+              fontSize: 18,
+              color: "#fff",
+              fontFamily: "Montserrat_600SemiBold",
+            }}
+          >
+            Recent activity
+          </Text>
+          <View style={{ marginTop: 10 }}>
+            <Text
+              style={{
+                fontSize: 14,
+                color: "#fff",
+                textAlign: "center",
+                fontFamily: "Montserrat_400Regular",
+              }}
+            >
+              No recent activities
+            </Text>
+          </View>
+        </View>
       </ScrollView>
     </GradientBg>
   );
@@ -111,5 +137,13 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: "#fff",
     marginTop: 5,
+    fontFamily: "Montserrat_400Regular"
+  },
+  bannerStyle: {
+    height: 129,
+    borderRadius: 14,
+  },
+  recentActivityStyle: {
+    marginTop: 20,
   },
 });

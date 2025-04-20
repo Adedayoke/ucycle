@@ -19,12 +19,36 @@ export default function OnboardingScreen({
     <View style={styles.page}>
       <View style={styles.header}>
         <View style={styles.counter}>
-          <Text style={{ color: "white", fontSize: 16 }}>{index + 1}</Text>
-          <Text style={{ color: themes.colorInactive, fontSize: 16 }}>/3</Text>
+          <Text
+            style={{
+              color: "white",
+              fontSize: 16,
+              fontFamily: "Montserrat_600SemiBold",
+            }}
+          >
+            {index + 1}
+          </Text>
+          <Text
+            style={{
+              color: themes.colorInactive,
+              fontSize: 16,
+              fontFamily: "Montserrat_600SemiBold",
+            }}
+          >
+            /3
+          </Text>
         </View>
         <Link href="/login" asChild>
           <Pressable hitSlop={20}>
-            <Text style={{ color: "white", fontSize: 16 }}>Skip</Text>
+            <Text
+              style={{
+                color: "white",
+                fontSize: 16,
+                fontFamily: "Montserrat_600SemiBold",
+              }}
+            >
+              Skip
+            </Text>
           </Pressable>
         </Link>
       </View>
@@ -48,14 +72,15 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 24,
-    fontWeight: "bold",
     color: "white",
+    fontFamily: "Montserrat_800ExtraBold",
   },
   desc: {
     marginTop: 10,
     fontSize: 14,
     textAlign: "center",
     color: themes.colorTextFaded,
+    fontFamily: "Montserrat_600SemiBold",
   },
   header: {
     flexDirection: "row",

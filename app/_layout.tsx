@@ -1,5 +1,12 @@
 import { TabBarProvider } from "@/context/TabBarContext";
-import { useFonts } from "expo-font";
+import {
+  Montserrat_500Medium,
+  Montserrat_400Regular,
+  Montserrat_600SemiBold,
+  Montserrat_800ExtraBold,
+  useFonts,
+} from "@expo-google-fonts/montserrat";
+// import { useFonts } from "expo-font";
 import { Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
 import { useEffect } from "react";
@@ -9,17 +16,20 @@ SplashScreen.preventAutoHideAsync();
 
 export default function layout() {
   // const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require("../assets/fonts/SpaceMono-Regular.ttf"),
+  const [loaded, error] = useFonts({
+    Montserrat_500Medium,
+    Montserrat_400Regular,
+    Montserrat_600SemiBold,
+    Montserrat_800ExtraBold
   });
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded || error) {
       SplashScreen.hideAsync();
     }
-  }, [loaded]);
+  }, [loaded, error]);
 
-  if (!loaded) {
+  if (!loaded && !error) {
     return null;
   }
 

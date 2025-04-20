@@ -12,15 +12,15 @@ export default function ProfileRepresentation() {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#4104F9",
-    width: 55,
-    height: 55,
+    width: 50,
+    height: 50,
     borderRadius: 50,
     alignItems: "center",
     justifyContent: "center",
   },
   name: {
     color: "#fff",
-    fontSize: 22,
-    fontWeight: "bold",
+    fontSize: 20,
+    fontFamily: "Montserrat_600SemiBold"
   }
 })
