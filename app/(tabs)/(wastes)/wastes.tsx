@@ -1,20 +1,10 @@
-import { useTabBar } from "@/context/TabBarContext";
+import { useChangeTabBg } from "@/hooks/useChangeTabBG";
 import { themes } from "@/theme";
-import { useFocusEffect } from "expo-router";
-import React, { useCallback } from "react";
+import React from "react";
 import { Text, View } from "react-native";
 
 export default function wastes() {
-  const { setTabBarStyle } = useTabBar();
-
-  useFocusEffect(
-    useCallback(() => {
-      setTabBarStyle({ backgroundColor: themes.colorBgDark });
-      return () => {
-        setTabBarStyle({ backgroundColor: 'transparent' });
-      };
-    }, [])
-  );
+  useChangeTabBg({ backgroundColor: themes.colorBgDark })
   
   return (
     <View>

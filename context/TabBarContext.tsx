@@ -14,9 +14,6 @@ export const useTabBar = () => useContext(TabBarContext);
 export const TabBarProvider = ({ children }: {children: React.ReactNode}) => {
   const [tabBarStyle, setTabBarStyle] = useState<TabOptions>({});
 
-  useEffect(function(){
-      console.log(tabBarStyle)
-    },[tabBarStyle])
 
   return (
     <TabBarContext.Provider value={{ tabBarStyle, setTabBarStyle }}>
