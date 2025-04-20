@@ -50,7 +50,7 @@ export default function index() {
               <Text style={styles.iconText}>Submit waste</Text>
             </Pressable>
           </Link>
-          <Link href="/" asChild>
+          <Link href="/onboarding" asChild>
             <Pressable style={styles.icon}>
               <BlackAndWhiteGradient style={styles.iconContainer}>
                 <Image
@@ -74,7 +74,7 @@ export default function index() {
           </Link>
         </View>
         <BlackAndWhiteGradient style={styles.bannerStyle}>
-          <Text>Something here</Text>
+          <Text></Text>
         </BlackAndWhiteGradient>
         <View style={styles.recentActivityStyle}>
           <Text
