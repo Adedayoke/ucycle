@@ -4,7 +4,7 @@ import { persist, createJSONStorage } from "zustand/middleware";
 
 type UserState = {
   hasFinishedOnboarding: boolean;
-  toggleHasOnboarded: () => void;
+  setHasOnboarded: (value: boolean) => void;
   user: object | null;
 };
 
@@ -21,11 +21,11 @@ export const useUserStore = create(
         });
       },
       hasFinishedOnboarding: false,
-      toggleHasOnboarded: () => {
+      setHasOnboarded: (value) => {
         return set((state) => {
           return {
             ...state,
-            hasFinishedOnboarding: !state.hasFinishedOnboarding,
+            hasFinishedOnboarding: value ,
           };
         });
       },

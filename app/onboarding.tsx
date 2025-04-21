@@ -48,7 +48,7 @@ export default function Onboarding() {
   const carouselRef = useRef<ICarouselInstance>(null); // Create a ref for the carousel
   const [currentIndex, setCurrentIndex] = useState(0);
   const router = useRouter();
-  const toggleHasOnboarded = useUserStore((state) => state.toggleHasOnboarded);
+  const setHasOnboarded = useUserStore((state) => state.setHasOnboarded);
 
   const goToNext = () => {
     carouselRef.current?.next(); // Move to the next slide
@@ -78,9 +78,9 @@ export default function Onboarding() {
   };
 
 
-  const handleToggleHasOnboarded = () => {
-    toggleHasOnboarded();
-    router.replace("/login");
+  const handlesetHasOnboarded = () => {
+    setHasOnboarded(true);
+    router.replace("/role");
   };
   return (
     <View style={styles.container}>
@@ -154,7 +154,7 @@ export default function Onboarding() {
             <Text style={styles.nextText}>Next</Text>
           </OpaquePressable>
         ) : (
-            <TouchableOpacity onPress={handleToggleHasOnboarded} style={styles.nextBtn}>
+            <TouchableOpacity onPress={handlesetHasOnboarded} style={styles.nextBtn}>
               <Text style={styles.nextText}>Get started</Text>
             </TouchableOpacity>
         )}
@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
   prevText: {
     display: "none",
     color: "white",
-    fontSize: 1,
+    fontSize: 16,
   },
   nextText: {
     color: themes.colorSecondary,

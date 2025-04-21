@@ -20,7 +20,7 @@ export default function layout() {
     Montserrat_500Medium,
     Montserrat_400Regular,
     Montserrat_600SemiBold,
-    Montserrat_800ExtraBold
+    Montserrat_800ExtraBold,
   });
 
   useEffect(() => {
@@ -37,15 +37,27 @@ export default function layout() {
     <TabBarProvider>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack.Screen
+          name="login"
+          options={{ headerShown: false, animation: "slide_from_right" }}
+        />
+        <Stack.Screen
+          name="onboarding"
+          options={{ headerShown: false, animation: "slide_from_right" }}
+        />
+        <Stack.Screen
+          name="role"
+          options={{ headerShown: false, animation: "fade" }}
+        />
+        <Stack.Screen
+          name="signup"
+          options={{ headerShown: false, animation: "slide_from_right" }}
+        />
         <Stack.Screen
           name="loading"
           options={{ headerShown: false, presentation: "fullScreenModal" }}
         />
-        <Stack.Screen name="onboarding" options={{ headerShown: false }} />
-        <Stack.Screen name="role" options={{ headerShown: false }} />
         <Stack.Screen name="scan_result" options={{ headerShown: false }} />
-        <Stack.Screen name="signup" options={{ headerShown: false }} />
         <Stack.Screen name="submit_waste" options={{ headerShown: false }} />
       </Stack>
     </TabBarProvider>
