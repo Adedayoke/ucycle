@@ -13,7 +13,14 @@ export default function role() {
       Alert.alert("Please select a role!")
       return
     }
-    router.push("/login")
+    // router.push("/login")
+    if (role === "recycu") {
+      router.push("/loginu");
+    }
+    if (role === "recycla") {
+      router.push("/logina");
+      
+    }
 
   }
   return (
