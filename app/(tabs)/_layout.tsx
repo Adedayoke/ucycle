@@ -16,14 +16,15 @@ export default function _layout() {
   const user = useUserStore(
     (state) => state.user
   );
+  console.log(user)
 
   if (!hasFinishedOnboarding) {
     return <Redirect href="/onboarding" />;
   }
   
-  if (!user) {
-    return <Redirect href="/login" />;
-  }
+  // if (!user) {
+  //   return <Redirect href="/login" />;
+  // }
   
   return (
       <Tabs

@@ -11,7 +11,7 @@ type UserState = {
 export const useUserStore = create(
   persist<UserState>(
     (set) => ({
-      user: null,
+      user: {name: "Habeeb"},
       setUser: (user: object) => {
         return set((state) => {
           return {
