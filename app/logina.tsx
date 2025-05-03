@@ -51,7 +51,7 @@ export default function LoginScreen() {
         <TextInput
           value={username}
           onChangeText={setUsername}
-          placeholder="Username or Email"
+          placeholder="Registration Number"
           style={styles.input}
           autoCapitalize="none"
         />

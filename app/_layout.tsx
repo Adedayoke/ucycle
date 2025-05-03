@@ -50,6 +50,14 @@ export default function layout() {
             options={{ headerShown: false, animation: "slide_from_right" }}
           />
           <Stack.Screen
+            name="signupa"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="signupu"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
             name="onboarding"
             options={{ headerShown: false, animation: "slide_from_right" }}
           />

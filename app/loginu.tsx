@@ -50,7 +50,7 @@ export default function LoginScreen() {
         <TextInput
           value={username}
           onChangeText={setUsername}
-          placeholder="Username or Email"
+          placeholder="Email"
           style={styles.input}
           autoCapitalize="none"
         />

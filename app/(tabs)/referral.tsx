@@ -1,16 +1,19 @@
-import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
 
-export default function ReferralScreen() {
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import GradientBg from "@/components/GradientBg";
+import { StatusBar } from "expo-status-bar";
+
+export default function Referral() {
   return (
-    <View style={styles.container}>
+    <GradientBg>
+      <StatusBar style="light" backgroundColor="transparent" />
       <Text style={styles.title}>Invite friends to earn points</Text>
-      <Button title="Invite a friend" onPress={() => {}} />
-    </View>
+    </GradientBg>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  title: { fontSize: 20, fontWeight: 'bold', marginBottom: 20 },
+  container: { flex: 1, alignItems: "center", justifyContent: "center" },
+  title: { fontSize: 20, fontWeight: "bold", marginBottom: 20, color: "white" },
 });

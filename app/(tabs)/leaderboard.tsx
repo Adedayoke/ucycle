@@ -1,24 +1,27 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from "react-native";
+import React from "react";
+import GradientBg from "@/components/GradientBg";
+import { StatusBar } from "expo-status-bar";
 
-export default function LeaderboardScreen() {
+export default function leaderboard() {
   return (
-    <View style={styles.container}>
+    <GradientBg>
+      <StatusBar style="light" backgroundColor="transparent" />
       <Text style={styles.title}>🏆 Leaderboard</Text>
-      {/* List of users */}
-    </View>
+    </GradientBg>
   );
 }
 
+
 const styles = StyleSheet.create({
-  container: { 
-    flex: 1, 
-    alignItems: 'center', 
-    justifyContent: 'center' 
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
   },
-  title: { 
-    fontSize: 22, 
-    fontWeight: 'bold', 
-    marginBottom: 20 
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20
   },
 });

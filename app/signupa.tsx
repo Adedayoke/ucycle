@@ -85,7 +85,7 @@ export default function SignupScreen() {
         <TextInput
           value={firstName}
           onChangeText={setFirstName}
-          placeholder="First Name"
+          placeholder="Company Name"
           style={styles.input}
         />
       </View>
@@ -96,7 +96,7 @@ export default function SignupScreen() {
         <TextInput
           value={lastName}
           onChangeText={setLastName}
-          placeholder="Last Name"
+          placeholder="Registration Number"
           style={styles.input}
         />
       </View>
@@ -107,7 +107,7 @@ export default function SignupScreen() {
         <TextInput
           value={email}
           onChangeText={setEmail}
-          placeholder="Email Address"
+          placeholder="Company Email"
           style={styles.input}
           autoCapitalize="none"
         />
