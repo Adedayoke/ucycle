@@ -22,7 +22,7 @@ export default function _layout() {
   }
   
   if (!user) {
-    return <Redirect href="/onboarding" />;
+    return <Redirect href="/role" />;
   }
   // return <Redirect href="/" />;
   return (

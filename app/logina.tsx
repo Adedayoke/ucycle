@@ -13,6 +13,8 @@ import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as React from "react";
 import Toast from "react-native-toast-message";
+import { StatusBar } from "expo-status-bar";
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -20,6 +22,8 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const setUser = useUserStore((state) => state.setUser);
+
 
   const handleLogin = () => {
     if (!username.trim() || !password.trim()) {
@@ -30,13 +34,15 @@ export default function LoginScreen() {
       });
       return;
     }
+    setUser({email: username})
 
     // If validation passed
-    router.replace("../(tabs)/(wastes)/index");
+    router.push("./(tabs)/(wastes)");
   };
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" backgroundColor="transparent" />
       <Text style={styles.header}>Login as Recycla</Text>
 
       {/* Username */}

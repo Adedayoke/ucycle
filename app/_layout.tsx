@@ -37,30 +37,39 @@ export default function layout() {
   }
 
   return (
-    <><TabBarProvider>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="login"
-          options={{ headerShown: false, animation: "slide_from_right" }} />
-        <Stack.Screen
-          name="onboarding"
-          options={{ headerShown: false, animation: "slide_from_right" }} />
-        <Stack.Screen
-          name="role"
-          options={{ headerShown: false, animation: "fade" }} />
-        <Stack.Screen
-          name="signup"
-          options={{ headerShown: false, animation: "slide_from_right" }} />
-        <Stack.Screen
-          name="loading"
-          options={{ headerShown: false, presentation: "fullScreenModal" }} />
-        <Stack.Screen name="scan_result" options={{ headerShown: false }} />
-        <Stack.Screen name="submit_waste" options={{ headerShown: false }} />
-      </Stack>
-    </TabBarProvider>
-    <Toast
-        config={toastConfig} />
-        </>
+    <>
+      <TabBarProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="logina"
+            options={{ headerShown: false, animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="loginu"
+            options={{ headerShown: false, animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="onboarding"
+            options={{ headerShown: false, animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="role"
+            options={{ headerShown: false, animation: "fade" }}
+          />
+          <Stack.Screen
+            name="signup"
+            options={{ headerShown: false, animation: "slide_from_right" }}
+          />
+          <Stack.Screen
+            name="loading"
+            options={{ headerShown: false, presentation: "fullScreenModal" }}
+          />
+          <Stack.Screen name="scan_result" options={{ headerShown: false }} />
+          <Stack.Screen name="submit_waste" options={{ headerShown: false }} />
+        </Stack>
+      </TabBarProvider>
+      <Toast config={toastConfig} />
+    </>
   );
 }

@@ -4,6 +4,7 @@ import { themes } from "@/theme";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import OpaquePressable from "@/components/OpaquePressable";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function role() {
   const [role, setRole] = useState("");
@@ -25,6 +26,7 @@ export default function role() {
   }
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" backgroundColor="transparent" />
       <View>
         <Image
           style={{

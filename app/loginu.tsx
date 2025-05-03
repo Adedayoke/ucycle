@@ -13,6 +13,8 @@ import Feather from "@expo/vector-icons/Feather";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import * as React from "react";
 import Toast from "react-native-toast-message";
+import { StatusBar } from "expo-status-bar";
+import { useUserStore } from "@/store/userStore";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -20,23 +22,26 @@ export default function LoginScreen() {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
+  const setUser = useUserStore((state) => state.setUser);
 
   const handleLogin = () => {
     if (!username.trim() || !password.trim()) {
       Toast.show({
-        type: 'error', 
+        type: "error",
         text1: "Validation Error",
         text2: "Please fill in both Username and Password.",
       });
       return;
     }
 
+    setUser({email: username})
     // If validation passed
-    router.replace("../(tabs)/(wastes)/index");
+    router.push("/(tabs)/(wastes)");
   };
 
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" backgroundColor="transparent" />
       <Text style={styles.header}>Login as Recycu</Text>
 
       {/* Username */}
@@ -85,18 +90,17 @@ export default function LoginScreen() {
           <Text style={styles.checkboxLabel}>Remember me</Text>
         </Pressable>
 
-        <TouchableOpacity onPress={() => {
-          // TODO: implement forgot password flow
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            // TODO: implement forgot password flow
+          }}
+        >
           <Text style={styles.link}>Forgot password?</Text>
         </TouchableOpacity>
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={handleLogin} 
-      >
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
 
