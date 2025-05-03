@@ -5,14 +5,15 @@ import { persist, createJSONStorage } from "zustand/middleware";
 type UserState = {
   hasFinishedOnboarding: boolean;
   setHasOnboarded: (value: boolean) => void;
-  user: object | null;
+  user: {email: string} | null;
+  setUser: (user: {email: string}) => void;
 };
 
 export const useUserStore = create(
   persist<UserState>(
     (set) => ({
-      user: {name: "Habeeb"},
-      setUser: (user: object) => {
+      user: null,
+      setUser: (user: {email: string}) => {
         return set((state) => {
           return {
             ...state,

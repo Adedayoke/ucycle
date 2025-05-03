@@ -22,10 +22,10 @@ export default function _layout() {
     return <Redirect href="/onboarding" />;
   }
   
-  // if (!user) {
-  //   return <Redirect href="/login" />;
-  // }
-  
+  if (!user) {
+    return <Redirect href="/role" />;
+  }
+  // return <Redirect href="/" />;
   return (
       <Tabs
         screenOptions={{
@@ -33,7 +33,7 @@ export default function _layout() {
             position: "absolute",
             bottom: 0,
             left: 20,
-            right: 20,
+            right: 20,  
             height: 65,
             backgroundColor: tabBarStyle ? tabBarStyle?.backgroundColor : "transparent",
             borderTopWidth: 0,

@@ -4,6 +4,7 @@ import { themes } from "@/theme";
 import PrimaryButton from "@/components/ui/PrimaryButton";
 import OpaquePressable from "@/components/OpaquePressable";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
 
 export default function role() {
   const [role, setRole] = useState("");
@@ -13,11 +14,19 @@ export default function role() {
       Alert.alert("Please select a role!")
       return
     }
-    router.push("/login")
+    // router.push("/login")
+    if (role === "recycu") {
+      router.push("/loginu");
+    }
+    if (role === "recycla") {
+      router.push("/logina");
+      
+    }
 
   }
   return (
     <View style={styles.container}>
+      <StatusBar style="dark" backgroundColor="transparent" />
       <View>
         <Image
           style={{

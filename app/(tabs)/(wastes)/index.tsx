@@ -6,6 +6,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import Toast from 'react-native-toast-message';
+import { toastConfig } from '@/components/toastconfig'; 
 import {
   Image,
   Pressable,
@@ -101,6 +103,7 @@ export default function index() {
           </View>
         </View>
       </ScrollView>
+      <Toast config={toastConfig} />
     </GradientBg>
   );
 }
