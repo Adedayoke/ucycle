@@ -16,8 +16,10 @@ import {
   Text,
   View,
 } from "react-native";
+import { useUserStore } from "@/store/userStore";
 
 export default function index() {
+  const user = useUserStore((state) => state.user);
   
   return (
     <GradientBg>
@@ -33,7 +35,7 @@ export default function index() {
             <View style={{ marginLeft: 10 }}>
               <Text style={{ fontSize: 14, color: "#fff", fontFamily: "Montserrat_400Regular" }}>Total Coins</Text>
               <Text style={{ fontSize: 18, color: "#fff", fontWeight: "bold" }}>
-                <Text style={{ color: themes.colorGold }}>UCY</Text> 0.00
+                <Text style={{ color: themes.colorGold }}>UCY</Text> {user?.coins?.toFixed(2)}
               </Text>
             </View>
           </View>
@@ -111,6 +113,7 @@ export default function index() {
 const styles = StyleSheet.create({
   containerStyle: {
     padding: 20,
+    flex: 1,
   },
   headerStyle: {
     flexDirection: "row",

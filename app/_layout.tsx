@@ -14,11 +14,13 @@ import React from "react";
 import { useEffect } from "react";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function layout() {
   // const colorScheme = useColorScheme();
+  const queryClient = new QueryClient();
   const [loaded, error] = useFonts({
     Montserrat_500Medium,
     Montserrat_400Regular,
@@ -38,6 +40,7 @@ export default function layout() {
 
   return (
     <>
+    <QueryClientProvider client={queryClient}>
       <TabBarProvider>
         <Stack>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
@@ -78,6 +81,8 @@ export default function layout() {
         </Stack>
       </TabBarProvider>
       <Toast config={toastConfig} />
+
+      </QueryClientProvider>
     </>
   );
 }

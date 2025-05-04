@@ -5,15 +5,19 @@ import { persist, createJSONStorage } from "zustand/middleware";
 type UserState = {
   hasFinishedOnboarding: boolean;
   setHasOnboarded: (value: boolean) => void;
-  user: {email: string} | null;
-  setUser: (user: {email: string}) => void;
+  refresh: string;
+  setRefresh: (refreshToken: string) => void;
+  user: any | null;
+  setUser: (user: any) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
 };
 
 export const useUserStore = create(
   persist<UserState>(
     (set) => ({
       user: null,
-      setUser: (user: {email: string}) => {
+      setUser: (user: any) => {
         return set((state) => {
           return {
             ...state,
@@ -30,6 +34,24 @@ export const useUserStore = create(
           };
         });
       },
+      loading: false,
+      refresh: "",
+      setRefresh: (refreshToken: string) => {
+        return set((state) => {
+          return {
+            ...state,
+            refresh: refreshToken ,
+          };
+        });
+      },
+      setLoading: (loading: boolean) => {
+        return set((state) => {
+          return {
+            ...state,
+            loading: loading ,
+          };
+        });
+      }
     }),
     {
       name: "ucycle-user-store",

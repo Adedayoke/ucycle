@@ -15,28 +15,30 @@ import * as React from "react";
 import Toast from "react-native-toast-message";
 import { StatusBar } from "expo-status-bar";
 import { useUserStore } from "@/store/userStore";
+import { useLoginRecyclu } from "@/hooks/QueryHooks/useLoginRecyclu";
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const setUser = useUserStore((state) => state.setUser);
+
+  const { loginUser, isPending } = useLoginRecyclu();
 
   const handleLogin = () => {
-    if (!username.trim() || !password.trim()) {
+    if (!email.trim() || !password.trim()) {
       Toast.show({
         type: "error",
         text1: "Validation Error",
-        text2: "Please fill in both Username and Password.",
+        text2: "Please fill in both Email and Password.",
       });
       return;
     }
 
-    setUser({email: username})
+    loginUser({ email, password });
     // If validation passed
-    router.push("/(tabs)/(wastes)");
+    // router.push("/(tabs)/(wastes)");
   };
 
   return (
@@ -44,12 +46,12 @@ export default function LoginScreen() {
       <StatusBar style="dark" backgroundColor="transparent" />
       <Text style={styles.header}>Login as Recycu</Text>
 
-      {/* Username */}
+      {/* Email */}
       <View style={styles.inputWrapper}>
         <Feather name="user" size={20} color="#666" style={styles.icon} />
         <TextInput
-          value={username}
-          onChangeText={setUsername}
+          value={email}
+          onChangeText={setEmail}
           placeholder="Email"
           style={styles.input}
           autoCapitalize="none"
@@ -100,7 +102,11 @@ export default function LoginScreen() {
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+      <TouchableOpacity
+        disabled={isPending}
+        style={styles.button}
+        onPress={handleLogin}
+      >
         <Text style={styles.buttonText}>LOGIN</Text>
       </TouchableOpacity>
 
