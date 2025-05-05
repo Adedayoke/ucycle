@@ -1,9 +1,12 @@
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import React from 'react';
+import { useChangeTabBg } from '@/hooks/useChangeTabBG';
+import { themes } from '@/theme';
 
 export default function WastesScreen() {
   const router = useRouter();
+  useChangeTabBg({ backgroundColor: themes.colorBgDark })
 
   return (
     <View style={styles.container}>
