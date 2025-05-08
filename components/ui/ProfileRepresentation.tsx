@@ -7,7 +7,7 @@ export default function ProfileRepresentation() {
   console.log("user is ", user)
   return (
     <View style={styles.container}>
-      <Text style={styles.name}>{user?.username.slice(0, 2)}</Text>
+      <Text style={styles.name}>{user?.username?.slice(0, 2)}</Text>
     </View>
   )
 }

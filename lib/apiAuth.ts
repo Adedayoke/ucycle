@@ -13,6 +13,11 @@ export type LoginRecycluReturnType = {
   coins: 0;
   referral_code: string;
 };
+export type RegisterRecyclaReturnType = {
+  refresh: string;
+  access: string;
+  message: string;
+};
 export type RegisterRecycluType = {
   first_name: string;
   last_name: string;
@@ -22,7 +27,15 @@ export type RegisterRecycluType = {
   password: string;
   username: string;
 };
-export type AuthRecylaType = {
+export type RegisterRecyclaType = {
+  company_name: string;
+  registration_number: string;
+  recycling_license: string;
+  email: string;
+  password: string;
+  username: string;
+};
+export type LoginRecylaType = {
   registration_number: string;
   password: string;
 };
@@ -35,37 +48,50 @@ export async function loginRecyclu(
   try {
     console.log("first", loginData);
     let response = await axiosNoToken.post(`/api/login/`, loginData);
-    // let response = await axios.post(
-    //   `https://recyclu.pythonanywhere.com/api/login/`,
-    //   loginData,
-    //   {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //       Accept: "application/json",
-    //     },
-    //   }
-    // );
-
-    // console.log(JSON.stringify(response.data));
     return response.data;
   } catch (error) {
-    console.log("error", error.response);
+    throw error
+    // console.log("error", error.response);
   }
 }
-export function loginRecycla({
-  registration_number,
-  password,
-}: AuthRecylaType) {}
+export async function loginRecycla(loginCompanyData: LoginRecylaType) {
+  try {
+    console.log("first", loginCompanyData);
+    let response = await axiosNoToken.post(`/api/auth/company-login/`, loginCompanyData);
+    console.log("response", response.data);
+    return response.data;
+  } catch (error) {
+    throw error
+    // console.log("error", error.response);
+  }
+}
 
 export async function registerRecyclu(
   registrationData: RegisterRecycluType
 ): Promise<any> {
   console.log("registerRecyclu", registrationData);
   try {
-    let response = await axiosNoToken.post("register", registrationData);
+    let response = await axiosNoToken.post("/register/", registrationData);
     console.log(response);
-    return response;
+    return response.data;
   } catch (error) {
+    throw error
     // console.log("error", error.response);
+  }
+}
+export async function registerRecycla(
+  registrationFormData: FormData
+): Promise<RegisterRecyclaReturnType | undefined> {
+  console.log("registerRecycla", registrationFormData);
+  try {
+    let response = await axiosNoToken.post("/api/auth/register-company/", registrationFormData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      }
+    });
+    console.log("Successful", response.data);
+    return response.data;
+  } catch (error: any) {
+    throw error;
   }
 }

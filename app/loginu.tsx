@@ -16,6 +16,7 @@ import Toast from "react-native-toast-message";
 import { StatusBar } from "expo-status-bar";
 import { useUserStore } from "@/store/userStore";
 import { useLoginRecyclu } from "@/hooks/QueryHooks/useLoginRecyclu";
+import ActionButtons from "@/components/ActionButtons";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -102,13 +103,21 @@ export default function LoginScreen() {
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
         disabled={isPending}
         style={styles.button}
         onPress={handleLogin}
       >
         <Text style={styles.buttonText}>LOGIN</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <ActionButtons
+        text="LOGIN"
+        textStyle={styles.buttonText}
+        onPress={handleLogin}
+        disabledState={isPending}
+        style={styles.button}
+        isPending={isPending}
+      />
 
       {/* Switch to Signup */}
       <View style={styles.bottomRow}>

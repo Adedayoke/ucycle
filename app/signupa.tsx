@@ -8,28 +8,41 @@ import {
   ScrollView,
   TouchableOpacity,
   Alert,
+  Pressable,
+  ActivityIndicator,
+  Image,
 } from "react-native";
 import { useRouter } from "expo-router";
 import Feather from "@expo/vector-icons/Feather";
 import * as React from "react";
 import Toast from "react-native-toast-message";
+import { useRegisterRecycla } from "@/hooks/QueryHooks/useRegisterRecycla";
+import { useImagePicker } from "@/hooks/useImagePicker";
+import OpaquePressable from "@/components/OpaquePressable";
+import { themes } from "@/theme";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import ActionButtons from "@/components/ActionButtons";
 
 export default function SignupScreen() {
   const router = useRouter();
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [companyName, setCompanyName] = useState("xdfbxdb");
+  const [registrationNumber, setRegistrationNumber] = useState("1234565323");
+  const [email, setEmail] = useState("companyTest13@gmail.com");
+  const [password, setPassword] = useState("Test123");
+  const [confirm, setConfirm] = useState("Test123");
   const [showPassword, setShowPassword] = useState(false);
+  const [formError, setFormError] = useState<String[]>([]);
 
+  const { registerCompany, isPending } = useRegisterRecycla();
+  const { imageUri, handleChooseImage, imageName } = useImagePicker();
 
   useEffect(() => {
     Toast.show({
-      type: 'info',
-      text1: 'Hello Recykla Agent!',
-      text2: 'You will be prompted to provide document validating your recyling license upon  sign up.',
-      position: 'top',
+      type: "info",
+      text1: "Hello Recykla Agent!",
+      text2:
+        "You will be prompted to provide document validating your recyling license upon  sign up.",
+      position: "top",
     });
     console.log("Toast shown");
   }, []);
@@ -39,40 +52,58 @@ export default function SignupScreen() {
     return regex.test(email);
   };
 
-  const handleSignup = () => {
-    if (!firstName.trim() || !lastName.trim() || !email.trim() || !password.trim() || !confirm.trim()) {
+  const handleSignup = async () => {
+    if (
+      !companyName.trim() ||
+      !registrationNumber.trim() ||
+      !email.trim() ||
+      !password.trim() ||
+      !confirm.trim()
+    ) {
       return;
     }
 
     if (!validateEmail(email)) {
       Toast.show({
-        type: 'error', 
-        text1: 'Error',
+        type: "error",
+        text1: "Error",
         text2: "Please enter a valid email address.",
       });
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 6 || password !== confirm) {
       Toast.show({
-        type: 'error', 
-        text1: 'Error',
-        text2: 'Passwords do not match 😢',
+        type: "error",
+        text1: "Error",
+        text2: "Passwords do not match 😢",
       });
       return;
     }
 
-    if (password !== confirm) {
-      Toast.show({
-        type: 'error', 
-        text1: 'Error',
-        text2: 'Passwords do not match 😢',
-      });
-      return;
+    const formData = new FormData();
+    formData.append("username", companyName);
+    formData.append("email", email);
+    formData.append("password", password);
+    formData.append("company_name", companyName);
+    formData.append("registration_number", registrationNumber);
+
+    if (imageUri) {
+      const fileName = imageUri.split("/").pop() || "license.jpg";
+      const match = /\.(\w+)$/.exec(fileName);
+      const ext = match ? match[1] : "jpg";
+      const mimeType = `image/${ext}`;
+
+      const blob = await (await fetch(imageUri)).blob();
+
+      formData.append("recycling_license", {
+        uri: imageUri,
+        type: mimeType,
+        name: fileName,
+      } as any); // `as any` to satisfy React Native's FormData typing
     }
 
-    // All validations passed
-    router.replace("/logina");
+    registerCompany(formData);
   };
 
   return (
@@ -83,8 +114,8 @@ export default function SignupScreen() {
       <View style={styles.inputWrapper}>
         <Feather name="user" size={20} color="#666" style={styles.icon} />
         <TextInput
-          value={firstName}
-          onChangeText={setFirstName}
+          value={companyName}
+          onChangeText={setCompanyName}
           placeholder="Company Name"
           style={styles.input}
         />
@@ -94,8 +125,8 @@ export default function SignupScreen() {
       <View style={styles.inputWrapper}>
         <Feather name="user" size={20} color="#666" style={styles.icon} />
         <TextInput
-          value={lastName}
-          onChangeText={setLastName}
+          value={registrationNumber}
+          onChangeText={setRegistrationNumber}
           placeholder="Registration Number"
           style={styles.input}
         />
@@ -145,10 +176,36 @@ export default function SignupScreen() {
         />
       </View>
 
+      <OpaquePressable onPress={handleChooseImage} style={styles.uploadImage}>
+        <MaterialCommunityIcons
+          name="license"
+          size={20}
+          style={styles.icon}
+          color="#666"
+        />
+        {!imageName ? (
+          <Text style={styles.uploadImageText}>
+            Upload registration license
+          </Text>
+        ) : (
+          <View style={{flexDirection: "row", alignItems: "center", justifyContent: "space-between", width: "90%"}}>
+            <Text>{imageName.slice(0, 15)}...</Text>
+            <Image source={{uri: imageUri || ""}} width={30} height={30} />
+          </View>
+        )}
+      </OpaquePressable>
+      {/* {formError.length > 0 &&
+        formError.map((err, index) => <Text key={index}>{err}</Text>)} */}
+
       {/* Signup Button */}
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
-        <Text style={styles.buttonText}>SIGN UP</Text>
-      </TouchableOpacity>
+      <ActionButtons
+        text="Sign up"
+        textStyle={styles.buttonText}
+        onPress={handleSignup}
+        disabledState={isPending}
+        style={styles.button}
+        isPending={isPending}
+      />
 
       {/* Switch to Login */}
       <View style={styles.bottomRow}>
@@ -160,8 +217,6 @@ export default function SignupScreen() {
     </ScrollView>
   );
 }
-
-
 
 const styles = StyleSheet.create({
   container: {
@@ -195,6 +250,19 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 48,
     fontSize: 16,
+  },
+  uploadImage: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+    borderRadius: 8,
+    marginBottom: 16,
+    paddingHorizontal: 12,
+    height: 48,
+  },
+  uploadImageText: {
+    fontSize: 16,
+    opacity: 0.4,
   },
   button: {
     backgroundColor: "#07575B",

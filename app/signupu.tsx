@@ -14,15 +14,16 @@ import Feather from "@expo/vector-icons/Feather";
 import * as React from "react";
 import Toast from "react-native-toast-message";
 import { useRegisterRecyclu } from "@/hooks/QueryHooks/useRegisterRecyclu";
+import ActionButtons from "@/components/ActionButtons";
 
 export default function SignupScreen() {
   const router = useRouter();
-  const [firstName, setFirstName] = useState("");
-  const [userName, setUserName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirm, setConfirm] = useState("");
+  const [firstName, setFirstName] = useState("test");
+  const [userName, setUserName] = useState("test2025");
+  const [lastName, setLastName] = useState("2025");
+  const [email, setEmail] = useState("test50@gmail.com");
+  const [password, setPassword] = useState("Test@2025");
+  const [confirm, setConfirm] = useState("Test@2025");
   const [showPassword, setShowPassword] = useState(false);
   const { registerUser, isPending } = useRegisterRecyclu();
 
@@ -164,9 +165,17 @@ export default function SignupScreen() {
       </View>
 
       {/* Signup Button */}
-      <TouchableOpacity style={styles.button} onPress={handleSignup}>
+      {/* <TouchableOpacity style={styles.button} onPress={handleSignup}>
         <Text style={styles.buttonText}>SIGN UP</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <ActionButtons
+        text="Sign up"
+        textStyle={styles.buttonText}
+        onPress={handleSignup}
+        disabledState={isPending}
+        style={styles.button}
+        isPending={isPending}
+      />
 
       {/* Switch to Login */}
       <View style={styles.bottomRow}>

@@ -15,29 +15,28 @@ import * as React from "react";
 import Toast from "react-native-toast-message";
 import { StatusBar } from "expo-status-bar";
 import { useUserStore } from "@/store/userStore";
+import { useLoginRecycla } from "@/hooks/QueryHooks/useLoginRecycla";
+import ActionButtons from "@/components/ActionButtons";
 
 export default function LoginScreen() {
   const router = useRouter();
-  const [username, setUsername] = useState("");
+  const [registrationNumber, setRegistrationNumber] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [rememberMe, setRememberMe] = useState(false);
-  const setUser = useUserStore((state) => state.setUser);
 
+  const { loginCompany, isPending } = useLoginRecycla();
 
   const handleLogin = () => {
-    if (!username.trim() || !password.trim()) {
+    if (!registrationNumber.trim() || !password.trim()) {
       Toast.show({
-        type: 'error', 
+        type: "error",
         text1: "Validation Error",
-        text2: "Please fill in both Username and Password.",
+        text2: "Please fill in both registrationNumber and Password.",
       });
       return;
     }
-    setUser({email: username})
-
-    // If validation passed
-    router.push("./(tabs)/(wastes)");
+    loginCompany({ registration_number: registrationNumber, password });
   };
 
   return (
@@ -45,12 +44,12 @@ export default function LoginScreen() {
       <StatusBar style="dark" backgroundColor="transparent" />
       <Text style={styles.header}>Login as Recycla</Text>
 
-      {/* Username */}
+      {/* registrationNumber */}
       <View style={styles.inputWrapper}>
         <Feather name="user" size={20} color="#666" style={styles.icon} />
         <TextInput
-          value={username}
-          onChangeText={setUsername}
+          value={registrationNumber}
+          onChangeText={setRegistrationNumber}
           placeholder="Registration Number"
           style={styles.input}
           autoCapitalize="none"
@@ -91,20 +90,31 @@ export default function LoginScreen() {
           <Text style={styles.checkboxLabel}>Remember me</Text>
         </Pressable>
 
-        <TouchableOpacity onPress={() => {
-          // TODO: implement forgot password flow
-        }}>
+        <TouchableOpacity
+          onPress={() => {
+            // TODO: implement forgot password flow
+          }}
+        >
           <Text style={styles.link}>Forgot password?</Text>
         </TouchableOpacity>
       </View>
 
       {/* Login Button */}
-      <TouchableOpacity
+      {/* <TouchableOpacity
+        disabled={isPending}
         style={styles.button}
-        onPress={handleLogin} 
+        onPress={handleLogin}
       >
         <Text style={styles.buttonText}>LOGIN</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
+      <ActionButtons
+        text="LOGIN"
+        textStyle={styles.buttonText}
+        onPress={handleLogin}
+        disabledState={isPending}
+        style={styles.button}
+        isPending={isPending}
+      />
 
       {/* Switch to Signup */}
       <View style={styles.bottomRow}>
