@@ -17,7 +17,6 @@ const referrals = [
   { id: "2", name: "Habeeb", points: 1000, avatar: require('@/assets/Idris.jpg') },
   { id: "3", name: "Habeeb", points: 1000, avatar: require('@/assets/Idris.jpg') },
 ];
-<FontAwesome name="group" size={24} color="black" />
 export default function ReferralScreen() {
   const renderReferral = ({ item, index }: { item: (typeof referrals)[0], index: number }) => (
     <View style={styles.row}>

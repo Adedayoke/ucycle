@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     padding : 10,
   },
   namem: {
-    // flex: 1,
     fontWeight: "bold",
     fontSize: 25,
     padding: 20,

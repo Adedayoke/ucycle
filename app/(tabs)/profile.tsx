@@ -1,4 +1,3 @@
-// ProfileScreen.tsx
 import React from "react";
 import {
   View,
@@ -12,7 +11,6 @@ import { StatusBar } from "expo-status-bar";
 import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
 
 export default function ProfileScreen() {
-  // Dummy user data
   const user = {
     initials: "OH",
     name: "Oke Habeeb",
