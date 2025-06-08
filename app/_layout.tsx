@@ -76,6 +76,7 @@ export default function layout() {
             name="loading"
             options={{ headerShown: false, presentation: "fullScreenModal" }}
           />
+          <Stack.Screen name="scan" options={{ headerShown: false }} />
           <Stack.Screen name="scan_result" options={{ headerShown: false }} />
           <Stack.Screen name="submit_waste" options={{ headerShown: false }} />
         </Stack>

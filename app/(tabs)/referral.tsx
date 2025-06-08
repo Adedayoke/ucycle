@@ -1,4 +1,3 @@
-
 import React from "react";
 import {
   View,
@@ -10,32 +9,31 @@ import {
 } from "react-native";
 import GradientBg from "@/components/GradientBg";
 import { StatusBar } from "expo-status-bar";
-import AntDesign from '@expo/vector-icons/AntDesign';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import AntDesign from "@expo/vector-icons/AntDesign";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import OpaquePressable from "@/components/OpaquePressable";
 const referrals = [
-  { id: "1", name: "Habeeb", points: 1000, avatar: require('@/assets/Idris.jpg')},
-  { id: "2", name: "Habeeb", points: 1000, avatar: require('@/assets/Idris.jpg') },
-  { id: "3", name: "Habeeb", points: 1000, avatar: require('@/assets/Idris.jpg') },
+  {
+    id: "1",
+    name: "Habeeb",
+    points: 1000,
+    avatar: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "2",
+    name: "Habeeb",
+    points: 1000,
+    avatar: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "3",
+    name: "Habeeb",
+    points: 1000,
+    avatar: require("@/assets/Idris.jpg"),
+  },
 ];
-<FontAwesome name="group" size={24} color="black" />
-export default function ReferralScreen() {
-  const renderReferral = ({ item, index }: { item: (typeof referrals)[0], index: number }) => (
-    <View style={styles.row}>
-      <Text style={styles.rank}>{index + 1}.</Text>
-      <Image source={item.avatar} style={styles.avatar} />
-      <View style={styles.referralcol}>
-      <Text style={styles.name}>{item.name}</Text>
-        <View style = {styles.referralicon}>
-      <AntDesign name="addusergroup" size={24} color="black" style = {styles.reffered}/>
-        <Text style={styles.subText}>+2</Text>
-        </View>
-      </View>
-      <View style={styles.referralInfo}>
-        <Text style={styles.points}>UCY {item.points}</Text>
-      </View>
-    </View>
-  );
 
+export default function ReferralScreen() {
   return (
     <GradientBg>
       <StatusBar style="light" backgroundColor="transparent" />
@@ -44,31 +42,66 @@ export default function ReferralScreen() {
       <View style={styles.headerContainer}>
         <Text style={styles.headerTitle}>EQU</Text>
         <View style={styles.inviteCard}>
-        <FontAwesome name="group" size={24} color="black" />
-        <AntDesign name="arrowright" size={24} color="black" />     
-             <Image
-            source={require("@/assets/Idris.jpg")}
+          <FontAwesome name="group" size={24} color="white" />
+          <AntDesign name="arrowright" size={24} color="white" />
+          <Image
+            source={require("@/assets/images/logo-sm.png")}
             style={styles.inviteImage}
             resizeMode="contain"
           />
         </View>
       </View>
       <Text style={styles.inviteText}>Invite friends to earn points</Text>
-          <Text style={styles.inviteText2}>Referral </Text>
+      <Text style={styles.inviteText2}>Referrals </Text>
 
       {/* Referrals List */}
       <FlatList
         data={referrals}
         keyExtractor={(item) => item.id}
-        renderItem={renderReferral}
+        renderItem={({ item, index }) => (
+          <RenderReferral index={index} item={item} />
+        )}
         contentContainerStyle={styles.list}
       />
 
       {/* Invite Button */}
-      <TouchableOpacity style={styles.inviteButton}>
+      <OpaquePressable onPress={()=>{}} style={styles.inviteButton}>
         <Text style={styles.inviteButtonText}>Invite a friend</Text>
-      </TouchableOpacity>
+      </OpaquePressable>
     </GradientBg>
+  );
+}
+
+function RenderReferral({
+  item,
+  index,
+}: {
+  item: (typeof referrals)[0];
+  index: number;
+}) {
+  return (
+    <View style={styles.row}>
+      {/* <Text style={styles.rank}>{index + 1}.</Text> */}
+      <Image source={item.avatar} style={styles.avatar} />
+      <View style={styles.referralcol}>
+        <Text style={styles.name}>{item.name}</Text>
+        <View style={styles.referralicon}>
+          <AntDesign
+            name="addusergroup"
+            size={24}
+            color="black"
+            style={styles.reffered}
+          />
+          <Text style={styles.subText}>+2</Text>
+        </View>
+      </View>
+      <View style={styles.referralInfo}>
+        <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+          <Text style={styles.points}>UCY</Text>{" "}
+          <Text style={{ color: "white" }}>{item.points}</Text>
+        </Text>
+      </View>
+    </View>
   );
 }
 
@@ -78,7 +111,7 @@ const styles = StyleSheet.create({
     marginTop: 50,
   },
   headerTitle: {
-    fontSize: 24,
+    fontSize: 30,
     fontWeight: "bold",
     color: "#fff",
     marginBottom: 20,
@@ -100,7 +133,7 @@ const styles = StyleSheet.create({
   },
   inviteText: {
     color: "#fff",
-    fontSize: 20,
+    fontSize: 18,
     fontWeight: "bold",
     flex: 1,
     flexWrap: "wrap",
@@ -108,11 +141,10 @@ const styles = StyleSheet.create({
   },
   inviteText2: {
     color: "#fff",
-    fontSize: 30,
+    fontSize: 24,
     fontWeight: "bold",
     flexWrap: "wrap",
     paddingHorizontal: 20,
-  
   },
   list: {
     paddingHorizontal: 20,
@@ -150,12 +182,10 @@ const styles = StyleSheet.create({
   },
   points: {
     color: "#FFD700",
-    fontSize: 14,
-    fontWeight: "bold",
   },
   inviteButton: {
     backgroundColor: "#fff",
-    marginBottom: 100 ,
+    marginBottom: 100,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
@@ -163,7 +193,7 @@ const styles = StyleSheet.create({
   },
   inviteButtonText: {
     color: "#07575B",
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: "600",
   },
   reffered: {
@@ -175,7 +205,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginLeft: 10,
-
   },
   referralcol: {
     flexDirection: "column",

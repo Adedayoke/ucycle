@@ -25,5 +25,5 @@ export function useImagePicker() {
     }
   };
 
-  return { imageUri, handleChooseImage, imageName };
+  return { imageUri, handleChooseImage, imageName, setImageUri };
 }

@@ -4,32 +4,79 @@ import GradientBg from "@/components/GradientBg";
 import { StatusBar } from "expo-status-bar";
 
 const users = [
-  { id: '1', name: 'IDRIS', points: 10000, image: require('@/assets/Idris.jpg') },
-  { id: '2', name: 'Habeeb', points: 12500, image: require('@/assets/Idris.jpg') },
-  { id: '3', name: 'Habeeb', points: 12500, image: require('@/assets/Idris.jpg') },
-  { id: '4', name: 'Habeeb', points: 12500, image: require('@/assets/Idris.jpg') },
-  { id: '5', name: 'Habeeb', points: 12500, image: require('@/assets/Idris.jpg') },
+  {
+    id: "1",
+    name: "IDRIS",
+    points: 10000,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "2",
+    name: "Habeeb",
+    points: 12500,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "3",
+    name: "Habeeb",
+    points: 12500,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "4",
+    name: "Habeeb",
+    points: 12500,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "5",
+    name: "Habeeb",
+    points: 12500,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "6",
+    name: "Jimoh",
+    points: 1500,
+    image: require("@/assets/Idris.jpg"),
+  },
+  {
+    id: "7",
+    name: "Jimoh",
+    points: 1500,
+    image: require("@/assets/Idris.jpg"),
+  },
 ];
 export default function Leaderboard() {
   return (
     <GradientBg>
       <StatusBar style="light" backgroundColor="transparent" />
-      <Text style={styles.title}>🏆 Leaderboard</Text>
-      <View style={styles.containerm}>
-            <Text style={styles.pointsm}>UCY 10.0K</Text>
-            <Image source={require('@/assets/Idris.jpg')} style={styles.avatarm} />
-            <Text style={styles.namem}>IDRIS</Text>
-          </View>
       <FlatList
         data={users}
         keyExtractor={(item) => item.id}
+        ListHeaderComponent={
+          <>
+            <Text style={styles.title}>🏆 Leaderboard</Text>
+            <View style={styles.containerm}>
+              <Text style={styles.pointsm}>UCY 10.0K</Text>
+              <Image
+                source={require("@/assets/Idris.jpg")}
+                style={styles.avatarm}
+              />
+              <Text style={styles.namem}>IDRIS</Text>
+            </View>
+          </>
+        }
         contentContainerStyle={styles.list}
         renderItem={({ item, index }) => (
           <View style={styles.item}>
             <Text style={styles.rank}>{index + 1}.</Text>
             <Image source={item.image} style={styles.avatar} />
             <Text style={styles.name}>{item.name}</Text>
-            <Text style={styles.points}>UCY {item.points}</Text>
+            <Text style={{ fontSize: 14, fontWeight: "bold" }}>
+              <Text style={styles.points}>UCY</Text>{" "}
+              <Text style={{ color: "white" }}>{item.points}</Text>
+            </Text>
           </View>
         )}
       />
@@ -48,6 +95,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 20,
+    paddingBottom: 100
   },
   item: {
     flexDirection: "row",
@@ -90,23 +138,23 @@ const styles = StyleSheet.create({
     color: "#FFD700",
     width: 1500,
     paddingHorizontal: 30,
-    paddingBlockEnd : 10,
+    paddingBlockEnd: 10,
     fontWeight: "bold",
-    textAlign: "center",      
+    textAlign: "center",
   },
   avatarm: {
     width: 120,
     height: 120,
     borderRadius: 120,
     marginLeft: 10,
-    padding : 10,
+    padding: 10,
   },
   namem: {
     // flex: 1,
     fontWeight: "bold",
     fontSize: 25,
     padding: 20,
-    
+
     color: "#fff",
   },
 });

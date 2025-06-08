@@ -3,8 +3,8 @@ import React from "react";
 import OpaquePressable from "./OpaquePressable";
 
 type ActionButtonProps = {
-  disabledState: boolean;
-  onPress: () => void;
+  disabledState?: boolean;
+  onPress?: () => void;
   style?: ViewStyle | ViewStyle[];
   isPending?: boolean;
   textStyle?: TextStyle | TextStyle[];
@@ -24,7 +24,7 @@ export default function ActionButtons({
     <OpaquePressable
       disabled={disabledState}
       style={style}
-      onPress={onPress}
+      onPress={onPress ? onPress : ()=> {}}
       accessibilityState={{ disabled: disabledState, busy: isPending }}
     >
       {isLoading ? (
