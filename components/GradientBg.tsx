@@ -1,6 +1,6 @@
-import { themes } from "@/theme";
+import { themes } from "@/constants/theme";
 import React from "react";
-import { Dimensions, Image, StyleSheet, Text, View } from "react-native";
+import { Dimensions, Image, StyleSheet, View } from "react-native";
 
 const { width, height } = Dimensions.get("screen");
 

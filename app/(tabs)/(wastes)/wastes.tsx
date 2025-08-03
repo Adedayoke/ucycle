@@ -1,10 +1,10 @@
-import { View, Text, Button, StyleSheet } from "react-native";
+import PrimaryButton from "@/components/ui/PrimaryButton";
+import { themes } from "@/constants/theme";
+import { useChangeTabBg } from "@/hooks/useChangeTabBG";
+import { FontAwesome6 } from "@expo/vector-icons";
 import { useRouter } from "expo-router";
 import React from "react";
-import { useChangeTabBg } from "@/hooks/useChangeTabBG";
-import { themes } from "@/theme";
-import PrimaryButton from "@/components/ui/PrimaryButton";
-import { FontAwesome6 } from "@expo/vector-icons";
+import { StyleSheet, Text, View } from "react-native";
 
 export default function WastesScreen() {
   const router = useRouter();

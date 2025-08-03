@@ -1,10 +1,10 @@
-import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from "react-native";
-import React, { useState } from "react";
-import { themes } from "@/theme";
-import PrimaryButton from "@/components/ui/PrimaryButton";
 import OpaquePressable from "@/components/OpaquePressable";
+import PrimaryButton from "@/components/ui/PrimaryButton";
+import { themes } from "@/constants/theme";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import React, { useState } from "react";
+import { Alert, Image, StyleSheet, Text, View } from "react-native";
 
 export default function role() {
   const [role, setRole] = useState("");

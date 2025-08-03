@@ -1,25 +1,24 @@
 import OnboardingScreen from "@/components/OnboardingScreen";
 import OpaquePressable from "@/components/OpaquePressable";
+import { themes } from "@/constants/theme";
 import { useUserStore } from "@/store/userStore";
-import { themes } from "@/theme";
-import { Link, useRouter } from "expo-router";
+import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import {
-  View,
-  Text,
   Dimensions,
   StyleSheet,
-  Button,
+  Text,
   TouchableOpacity,
+  View
 } from "react-native";
 import {
-	Extrapolation,
-	interpolate,
-	useSharedValue,
+  Extrapolation,
+  interpolate,
+  useSharedValue,
 } from "react-native-reanimated";
-import Carousel, { Pagination } from "react-native-reanimated-carousel";
 import type { ICarouselInstance } from "react-native-reanimated-carousel";
+import Carousel, { Pagination } from "react-native-reanimated-carousel";
 
 const { height, width } = Dimensions.get("window");
 

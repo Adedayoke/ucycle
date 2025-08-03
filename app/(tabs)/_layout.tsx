@@ -1,10 +1,10 @@
-import { TabBarProvider, useTabBar } from "@/context/TabBarContext";
+import { themes } from "@/constants/theme";
+import { useTabBar } from "@/context/TabBarContext";
 import { useUserStore } from "@/store/userStore";
-import { themes } from "@/theme";
 import { AntDesign, Octicons, SimpleLineIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Redirect, Tabs } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { StyleSheet, View } from "react-native";
 
 export default function _layout() {

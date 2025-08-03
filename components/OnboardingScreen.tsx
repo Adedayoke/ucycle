@@ -1,8 +1,7 @@
-import { View, Text, StyleSheet, Pressable } from "react-native";
-import React from "react";
-import { themes } from "@/theme";
+import { themes } from "@/constants/theme";
 import { Link } from "expo-router";
-import { Dimensions } from "react-native";
+import React from "react";
+import { Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
 
 const { width } = Dimensions.get("window");
 

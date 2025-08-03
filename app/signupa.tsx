@@ -1,27 +1,23 @@
 // SignupScreen.tsx
-import { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  TextInput,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Alert,
-  Pressable,
-  ActivityIndicator,
-  Image,
-} from "react-native";
-import { useRouter } from "expo-router";
-import Feather from "@expo/vector-icons/Feather";
-import * as React from "react";
-import Toast from "react-native-toast-message";
+import ActionButtons from "@/components/ActionButtons";
+import OpaquePressable from "@/components/OpaquePressable";
 import { useRegisterRecycla } from "@/hooks/QueryHooks/useRegisterRecycla";
 import { useImagePicker } from "@/hooks/useImagePicker";
-import OpaquePressable from "@/components/OpaquePressable";
-import { themes } from "@/theme";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import ActionButtons from "@/components/ActionButtons";
+import Feather from "@expo/vector-icons/Feather";
+import { useRouter } from "expo-router";
+import * as React from "react";
+import { useEffect, useState } from "react";
+import {
+    Image,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
+} from "react-native";
+import Toast from "react-native-toast-message";
 
 export default function SignupScreen() {
   const router = useRouter();

@@ -1,22 +1,22 @@
 import GradientBg from "@/components/GradientBg";
+import { toastConfig } from '@/components/toastconfig';
 import BlackAndWhiteGradient from "@/components/ui/BlackAndWhiteGradient";
 import ProfileRepresentation from "@/components/ui/ProfileRepresentation";
-import { themes } from "@/theme";
+import { themes } from "@/constants/theme";
+import { useUserStore } from "@/store/userStore";
 import { Ionicons } from "@expo/vector-icons";
 import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
-import Toast from 'react-native-toast-message';
-import { toastConfig } from '@/components/toastconfig'; 
 import {
-  Image,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
+    Image,
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
 } from "react-native";
-import { useUserStore } from "@/store/userStore";
+import Toast from 'react-native-toast-message';
 
 export default function index() {
   const user = useUserStore((state) => state.user);
