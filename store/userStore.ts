@@ -2,13 +2,21 @@ import { create } from "zustand";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { persist, createJSONStorage } from "zustand/middleware";
 
+interface User {
+  id: string;
+  email: string;
+  name?: string;
+  role?: string;
+  [key: string]: any; // Allow additional properties
+}
+
 type UserState = {
   hasFinishedOnboarding: boolean;
   setHasOnboarded: (value: boolean) => void;
   refresh: string;
   setRefresh: (refreshToken: string) => void;
-  user: any | null;
-  setUser: (user: any) => void;
+  user: User | null;
+  setUser: (user: User | null) => void;
   loading: boolean;
   setLoading: (loading: boolean) => void;
 };
@@ -17,7 +25,7 @@ export const useUserStore = create(
   persist<UserState>(
     (set) => ({
       user: null,
-      setUser: (user: any) => {
+      setUser: (user: User | null) => {
         return set((state) => {
           return {
             ...state,

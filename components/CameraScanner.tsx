@@ -1,11 +1,11 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import * as FileSystem from 'expo-file-system';
 import {
   CameraView,
   CameraType,
   useCameraPermissions,
   CameraMode,
 } from "expo-camera";
-import { useState } from "react";
 import {
   Button,
   Image,
@@ -24,6 +24,7 @@ import {
 import OpaquePressable from "./OpaquePressable";
 import { useImagePicker } from "@/hooks/useImagePicker";
 import PrimaryButton from "./ui/PrimaryButton";
+import { router } from "expo-router";
 
 export default function CameraScanner() {
   // Changed from App to CameraScanner
@@ -31,24 +32,46 @@ export default function CameraScanner() {
   const [permission, requestPermission] = useCameraPermissions();
   const ref = useRef<CameraView>(null);
   const [mode, setMode] = useState<CameraMode>("picture");
+  const [flashOn, setFlashOn] = useState(false);
+  const [isCapturing, setIsCapturing] = useState(false);
 
   const [uploadUri, setUploadUri] = useState<string | null>(null);
   const [uri, setUri] = useState<string | null>(null);
   const { imageUri, handleChooseImage, imageName, setImageUri } =
     useImagePicker();
 
+  // Use any-cast to attach optional props (e.g., enableTorch) safely
+  const CameraAny = CameraView as any;
+
   useEffect(() => {
-    // When a picture is taken, move it to uploadUri
+    // When a picture is taken, navigate to form with image
     if (uri) {
-      setUploadUri(uri);
+      router.push({
+        pathname: "/submit_waste",
+        params: { imageUri: uri, suggestedName: '' }
+      });
       setUri(null);
     }
   }, [uri]);
 
+  // Auto-prompt for camera permission on mount if not granted yet
   useEffect(() => {
-    // When an image is picked from gallery, use that
+    if (permission && !permission.granted && permission.canAskAgain) {
+      requestPermission();
+    }
+  }, [permission?.granted]);
+
+  useEffect(() => {
+    // When an image is picked from gallery, navigate to form
     if (imageUri) {
-      setUploadUri(imageUri);
+      const suggested = (imageName || '')
+        .replace(/\.[^/.]+$/, '')
+        .replace(/[-_]+/g, ' ')
+        .trim();
+      router.push({
+        pathname: "/submit_waste",
+        params: { imageUri: imageUri, suggestedName: suggested }
+      });
       setImageUri(null);
     }
   }, [imageUri]);
@@ -75,10 +98,46 @@ export default function CameraScanner() {
     );
   }
   const takePicture = async () => {
-    const photo = await ref.current?.takePictureAsync();
-    if (photo?.uri) {
-      setUri(photo?.uri);
+    setIsCapturing(true);
+    const photo = await ref.current?.takePictureAsync({ quality: 0.85, skipProcessing: true, base64: true } as any);
+    const p: any = photo as any;
+    let outUri: string | undefined = undefined;
+    // If base64 available, write to app cache and use that file path (not gallery)
+    if (p?.base64) {
+      try {
+        const dest = `${FileSystem.cacheDirectory}ucam_${Date.now()}.jpg`;
+        await FileSystem.writeAsStringAsync(dest, p.base64, { encoding: FileSystem.EncodingType.Base64 });
+        outUri = dest;
+      } catch {
+        // fallback to using data URI if write fails
+        outUri = `data:image/jpeg;base64,${p.base64}`;
+      }
+    } else {
+      outUri = p?.uri || p?.assets?.[0]?.uri;
     }
+    if (outUri) {
+      // Normalize to file:// scheme if missing
+      if (!outUri.startsWith('file://') && !outUri.startsWith('content://')) {
+        if (!outUri.startsWith('data:')) outUri = `file://${outUri}`;
+      }
+      // If it's a file URI, ensure the file exists (skip for data URIs)
+      if (!outUri.startsWith('data:')) {
+        let exists = false;
+        for (let i = 0; i < 5; i++) {
+          try {
+            const info = await FileSystem.getInfoAsync(outUri);
+            exists = !!info.exists;
+            if (exists) break;
+          } catch {}
+          await new Promise((r) => setTimeout(r, 80));
+        }
+        if (!exists) {
+          await new Promise((r) => setTimeout(r, 120));
+        }
+      }
+      setUri(outUri);
+    }
+    setIsCapturing(false);
   };
 
   function toggleCameraFacing() {
@@ -120,7 +179,7 @@ export default function CameraScanner() {
             It's Recyclable
           </Text>
           {/* <Button onPress={() => setUri(null)} title="Take another picture" /> */}
-          <PrimaryButton onPress={() => {}}>Add to Wastes</PrimaryButton>
+          <PrimaryButton onPress={() => router.push("/submit_waste")}>Add to Wastes</PrimaryButton>
         </View>
       </View>
     );
@@ -128,13 +187,14 @@ export default function CameraScanner() {
 
   const renderCamera = () => {
     return (
-      <CameraView
+      <CameraAny
         style={styles.camera}
         ref={ref}
         mode={mode}
         facing={facing}
         mute={false}
         responsiveOrientationWhenOrientationLocked
+        enableTorch={flashOn}
       >
         <View style={styles.shutterContainer}>
           <OpaquePressable
@@ -143,6 +203,9 @@ export default function CameraScanner() {
           >
             <AntDesign name="picture" size={32} color="white" />
           </OpaquePressable>
+          <Pressable onPress={() => setFlashOn((f) => !f)}>
+            <MaterialCommunityIcons name={flashOn ? "flash" : "flash-off"} size={34} color="white" />
+          </Pressable>
           <Pressable onPress={takePicture}>
             {/* <Pressable onPress={mode === "picture" ? takePicture : recordVideo}> */}
             {({ pressed }) => (
@@ -169,7 +232,13 @@ export default function CameraScanner() {
             <FontAwesome6 name="camera-rotate" size={32} color="white" />
           </Pressable>
         </View>
-      </CameraView>
+
+        {isCapturing && (
+          <View style={styles.overlay}> 
+            <Text style={styles.overlayText}>Processing...</Text>
+          </View>
+        )}
+      </CameraAny>
     );
   };
 
@@ -194,6 +263,17 @@ const styles = StyleSheet.create({
   camera: {
     flex: 1,
   },
+  overlay: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0,0,0,0.35)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  overlayText: { color: 'white', fontSize: 18, fontWeight: '600' },
   buttonContainer: {
     flex: 1,
     flexDirection: "row",

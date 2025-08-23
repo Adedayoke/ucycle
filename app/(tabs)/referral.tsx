@@ -7,11 +7,13 @@ import {
   TouchableOpacity,
   StyleSheet,
 } from "react-native";
-import GradientBg from "@/components/GradientBg";
 import { StatusBar } from "expo-status-bar";
+import GradientBg from "@/components/GradientBg";
+import { useChangeTabBg } from "@/hooks/useChangeTabBG";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import OpaquePressable from "@/components/OpaquePressable";
+import { themes } from "@/constants/theme";
 const referrals = [
   {
     id: "1",
@@ -34,6 +36,8 @@ const referrals = [
 ];
 
 export default function ReferralScreen() {
+  // Gradient page -> set tab bar to light
+  useChangeTabBg({ backgroundColor: themes.colorPrimaryLight });
   return (
     <GradientBg>
       <StatusBar style="light" backgroundColor="transparent" />

@@ -32,33 +32,21 @@ export default function _layout() {
   return (
       <Tabs
         screenOptions={{
+          // Scene background can remain as-is; focus here is the tab bar background
           tabBarStyle: {
             position: "absolute",
             bottom: 0,
             left: 20,
             right: 20,  
             height: 65,
-            backgroundColor: tabBarStyle ? tabBarStyle?.backgroundColor : "transparent",
+            // Use a solid dark background for the tab bar
+            backgroundColor: tabBarStyle?.backgroundColor || themes.colorBgDark,
             borderTopWidth: 0,
             elevation: 0,
             zIndex: 999,
           },
-          tabBarBackground: () => (
-            <View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                overflow: "hidden",
-              }}
-            >
-              <BlurView
-                style={{
-                  flex: 1,
-                  backgroundColor: "transparent",
-                }}
-                intensity={80}
-              />
-            </View>
-          ),
+          // Remove blurred transparent background to keep tabs opaque
+          tabBarBackground: undefined,
         }}
       >
         <Tabs.Screen

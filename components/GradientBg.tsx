@@ -1,6 +1,7 @@
 import { themes } from "@/constants/theme";
 import React from "react";
-import { Dimensions, Image, StyleSheet, View } from "react-native";
+import { Dimensions, Image, StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const { width, height } = Dimensions.get("screen");
 
@@ -10,16 +11,15 @@ export default function GradientBg({
   children: React.ReactNode;
 }) {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={["top", "left", "right"]}>
       {children}
       <Image blurRadius={312} style={styles.bg} source={require("../assets/images/bg.png")} />
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
     flex: 1,
     backgroundColor: themes.colorBgDark,
     overflow: "hidden",

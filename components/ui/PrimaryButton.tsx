@@ -1,20 +1,50 @@
 import { themes } from "@/constants/theme";
 import React from "react";
-import { StyleSheet, Text } from "react-native";
-import OpaquePressable from "../OpaquePressable";
+import { ActivityIndicator, StyleSheet, Text, ViewStyle } from "react-native";
+import OpaquePressable from "@/components/OpaquePressable";
+
+type Props = {
+  onPress: () => void;
+  size?: number;
+  children: React.ReactNode;
+  disabled?: boolean;
+  loading?: boolean;
+  fullWidth?: boolean;
+  style?: ViewStyle | ViewStyle[];
+  accessibilityLabel?: string;
+};
 
 export default function PrimaryButton({
   onPress,
   size,
   children,
-}: {
-  onPress: () => void;
-  size?: number;
-  children: React.ReactNode;
-}) {
+  disabled = false,
+  loading = false,
+  fullWidth = true,
+  style,
+  accessibilityLabel,
+}: Props) {
+  const containerStyles = [
+    styles.btnCont,
+    fullWidth ? { alignSelf: "stretch" } : undefined,
+    disabled ? styles.btnDisabled : undefined,
+    style,
+  ] as any;
+
   return (
-    <OpaquePressable style={styles.btnCont} onPress={onPress}>
-      <Text style={[styles.btnText, { fontSize: size }]}>{children}</Text>
+    <OpaquePressable
+      style={containerStyles}
+      onPress={onPress}
+      disabled={disabled || loading}
+      accessibilityRole="button"
+      accessibilityLabel={accessibilityLabel}
+      accessibilityState={{ disabled: disabled || loading, busy: loading }}
+    >
+      {loading ? (
+        <ActivityIndicator color="#fff" />
+      ) : (
+        <Text style={[styles.btnText, size ? { fontSize: size } : null]}>{children}</Text>
+      )}
     </OpaquePressable>
   );
 }
@@ -24,6 +54,9 @@ const styles = StyleSheet.create({
     backgroundColor: themes.colorPrimaryDark,
     borderRadius: 6,
     padding: 20,
+  },
+  btnDisabled: {
+    opacity: 0.6,
   },
   btnText: {
     color: "#fff",

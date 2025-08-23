@@ -1,4 +1,4 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import React from "react";
 
 export default function OpaquePressable({
@@ -6,13 +6,17 @@ export default function OpaquePressable({
   onPress,
   style,
   disabled,
-  accessibilityState
+  accessibilityState,
+  accessibilityRole,
+  accessibilityLabel,
 }: {
   children: React.ReactNode;
   onPress: () => void;
   style?: any;
   disabled?: boolean;
-  accessibilityState?: any
+  accessibilityState?: any;
+  accessibilityRole?: string;
+  accessibilityLabel?: string;
 }) {
   return (
     <TouchableOpacity
@@ -22,6 +26,8 @@ export default function OpaquePressable({
       style={style}
       onPress={onPress}
       accessibilityState={accessibilityState}
+      accessibilityRole={accessibilityRole as any}
+      accessibilityLabel={accessibilityLabel}
     >
       {children}
     </TouchableOpacity>

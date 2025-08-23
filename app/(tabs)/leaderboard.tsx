@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, FlatList, Image } from "react-native";
 import React from "react";
-import GradientBg from "@/components/GradientBg";
 import { StatusBar } from "expo-status-bar";
+import GradientBg from "@/components/GradientBg";
+import { useChangeTabBg } from "@/hooks/useChangeTabBG";
+import { themes } from "@/constants/theme";
 
 const users = [
   {
@@ -48,6 +50,8 @@ const users = [
   },
 ];
 export default function Leaderboard() {
+  // Gradient page -> set tab bar to light
+  useChangeTabBg({ backgroundColor: themes.colorPrimaryLight });
   return (
     <GradientBg>
       <StatusBar style="light" backgroundColor="transparent" />
@@ -95,7 +99,7 @@ const styles = StyleSheet.create({
   },
   list: {
     paddingHorizontal: 20,
-    paddingBottom: 100
+    paddingBottom: 160
   },
   item: {
     flexDirection: "row",
@@ -136,7 +140,6 @@ const styles = StyleSheet.create({
   pointsm: {
     fontSize: 20,
     color: "#FFD700",
-    width: 1500,
     paddingHorizontal: 30,
     paddingBlockEnd: 10,
     fontWeight: "bold",
@@ -154,7 +157,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontSize: 25,
     padding: 20,
-
     color: "#fff",
   },
 });

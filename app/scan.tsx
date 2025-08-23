@@ -2,6 +2,7 @@ import { View, Text, Button, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import CameraScanner from '@/components/CameraScanner';
+import { themes } from '@/constants/theme';
 
 export default function ScanWasteScreen() {
   const router = useRouter();
@@ -16,6 +17,6 @@ export default function ScanWasteScreen() {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 0 },
-  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20 },
+  container: { flex: 1, alignItems: 'center', justifyContent: 'center', paddingVertical: 0, backgroundColor: themes.colorPrimaryLight },
+  title: { fontSize: 22, fontWeight: 'bold', marginBottom: 20, color: '#003B46' },
 });

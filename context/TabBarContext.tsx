@@ -1,5 +1,6 @@
 // app/context/TabBarContext.tsx
 import React, { createContext, useContext, useEffect, useState } from 'react';
+import { themes } from '@/constants/theme';
 type TabOptions = {
   backgroundColor?: string
 }
@@ -12,7 +13,8 @@ const TabBarContext = createContext<TabBarContextType>({});
 export const useTabBar = () => useContext(TabBarContext);
 
 export const TabBarProvider = ({ children }: {children: React.ReactNode}) => {
-  const [tabBarStyle, setTabBarStyle] = useState<TabOptions>({});
+  // Default to a dark tab bar background for consistent appearance
+  const [tabBarStyle, setTabBarStyle] = useState<TabOptions>({ backgroundColor: themes.colorBgDark });
 
 
   return (

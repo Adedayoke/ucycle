@@ -7,11 +7,15 @@ import {
   TouchableOpacity,
   Image,
 } from "react-native";
-import GradientBg from "@/components/GradientBg";
 import { StatusBar } from "expo-status-bar";
 import { MaterialIcons, FontAwesome5, Ionicons } from "@expo/vector-icons";
+import GradientBg from "@/components/GradientBg";
+import { useChangeTabBg } from "@/hooks/useChangeTabBG";
+import { themes } from "@/constants/theme";
 
 export default function ProfileScreen() {
+  // Gradient page -> set tab bar to light
+  useChangeTabBg({ backgroundColor: themes.colorPrimaryLight });
   // Dummy user data
   const user = {
     initials: "OH",

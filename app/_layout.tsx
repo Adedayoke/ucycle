@@ -15,6 +15,8 @@ import { useEffect } from "react";
 import "react-native-reanimated";
 import Toast from "react-native-toast-message";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { configureNotifications } from "@/utils/notifications";
+import { themes } from "@/constants/theme";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -34,6 +36,11 @@ export default function layout() {
     }
   }, [loaded, error]);
 
+  useEffect(() => {
+    // best-effort init; ignore result for now
+    configureNotifications().catch(() => {});
+  }, []);
+
   if (!loaded && !error) {
     return null;
   }
@@ -42,7 +49,7 @@ export default function layout() {
     <>
     <QueryClientProvider client={queryClient}>
       <TabBarProvider>
-        <Stack>
+        <Stack screenOptions={{ contentStyle: { backgroundColor: themes.colorPrimaryLight } }}>
           <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
           <Stack.Screen
             name="logina"
@@ -79,6 +86,7 @@ export default function layout() {
           <Stack.Screen name="scan" options={{ headerShown: false }} />
           <Stack.Screen name="scan_result" options={{ headerShown: false }} />
           <Stack.Screen name="submit_waste" options={{ headerShown: false }} />
+          <Stack.Screen name="pickup" options={{ headerShown: false }} />
         </Stack>
       </TabBarProvider>
       <Toast config={toastConfig} />
